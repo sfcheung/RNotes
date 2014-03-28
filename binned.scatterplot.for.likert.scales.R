@@ -1,4 +1,4 @@
-# Plot a binned scatterplot for Likert scale responses.
+# Plot a binned scatterplot for discrete ordinal variables (e.g., Likert scale responses)
 
 x <- round(runif(100,1,5))
 y <- round(runif(100,1,5))
