@@ -1,4 +1,4 @@
-# Generate a bubble plot for two Likert scales.
+# Plot a bubble plot for discrete ordinal variables (e.g., Likert scale responses)
 
 x <- round(runif(100,1,3))
 y <- round(runif(100,-1,1)) + x
