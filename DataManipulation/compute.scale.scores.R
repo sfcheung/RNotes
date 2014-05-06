@@ -40,6 +40,7 @@ personality.keys2 <- list(
 keys2 <- make.keys(personality.labels,keys.list=personality.keys)
 
 # Scoring
-personality.scoreItems <- scoreItems(keys2, RawData[,1:20], digits=4)
+personality.scoreItems <- scoreItems(keys2, RawData[,1:20], digits=4, 
+                          min=1,max=5)
 RawDataScored <- merge(RawData, personality.scoreItems$scores, by="row.names")
 write.csv(RawDataScored,"RawDataScored.csv")
