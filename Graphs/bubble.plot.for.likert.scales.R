@@ -1,4 +1,8 @@
-# Plot a bubble plot for discrete ordinal variables (e.g., Likert scale responses)
+# Plot a bubble plot for discrete ordinal variables 
+#   (e.g., Likert scale responses).
+# Usual plots for categorical variables (e.g., mosaic plot) are not suitable
+#   for likert scales in which the data are usually treated as 
+#   discrete numbers, rather than just different categories.
 
 # Generate random data for illustration
 set.seed(14897)
