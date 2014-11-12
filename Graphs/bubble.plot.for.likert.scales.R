@@ -6,7 +6,7 @@
 
 # Generate random data for illustration
 set.seed(14897)
-x <- round(runif(100,1,3))
+x <- round(runif(100,1,5))
 y <- round(runif(100,-1,1)) + x
 xy.data <- data.frame(x,y)
 
@@ -20,5 +20,5 @@ xbyy.freq <- as.numeric(xtabs(~x+y, data=xy.data))
 
 # Generate the bubble plot based on the frequencies
 xy.bubble <- ggplot(data.frame(x=xbyy[,1],y=xbyy[,2], freq=xbyy.freq),aes(x,y))
-xy.bubble + geom_point(aes(size=freq)) + scale_size_area(max_size=30)
+xy.bubble + geom_point(aes(size=freq)) + scale_size_area(max_size=20)
 # max_size is used to set the maximum size of the bubbles.
