@@ -7,7 +7,9 @@
 #   Communication Methods and Measures, 6, 77-98.
 
 medMC <- function(a, b, ase, bse, nrep=1000, conf=.95,
-                  seed=NULL, printout=TRUE, ...) {
+                  seed=NULL, printout=TRUE, 
+                  sd_iv=NULL, sd_dv=NULL,
+                  mednames=NULL, ...) {
   # Input:
   #   a: A vector of one or more sample regression 
   #      coefficient estimates from the independent 
@@ -22,6 +24,11 @@ medMC <- function(a, b, ase, bse, nrep=1000, conf=.95,
   #         interval.
   #   seed: Random seed. Used to make the simulation reproducible.
   #   printout: If TRUE, the results will be printed.
+  #   mednames: Optional. A vector of the names of the mediators.
+  #   sd_iv, sd_dv: The standard deviations of the independent
+  #                 variable and dependent variable. If
+  #                 provided, can compute the completely standardized
+  #                 indirect effect.
   #   ...: Optional arguments to be passed to print().
   
   require(MASS)
@@ -47,20 +54,37 @@ medMC <- function(a, b, ase, bse, nrep=1000, conf=.95,
   conf_hi <- 1-(1-conf)/2
   ab_ci <- t(apply(ab_mc, 2, quantile, 
            probs=c(conf_lo, conf_hi)))
+  colnames(ab_ci) <- c(paste((conf*100),"% Lower", sep=""),
+                       paste((conf*100),"% Upper", sep=""))
   rownames(ab_ci) <- paste("Specific Indirect Effect", 1:k, 
                            sep=" ")
+  if (!is.null(mednames)) rownames(ab_ci) <- mednames
   total_ci <- matrix(quantile(total_mc, probs=c(conf_lo, conf_hi)),
                      1, 2)
   colnames(total_ci) <- colnames(ab_ci)
   rownames(total_ci) <- "Total Indirect Effect"
+  
+  # Compute the completely standardized indirect effect
+  
+  if (!is.null(sd_iv) & !is.null(sd_dv)) {
+      ab_std <- ab*sd_iv/sd_dv
+      total_std <- total*sd_iv/sd_dv
+    } else {
+      ab_std <- rep(NA, k)
+      total_std <- NA
+    }
+  
   if (printout) {
-      tmp <- cbind(c(ab,total),rbind(ab_ci, total_ci))
-      colnames(tmp) <- c("Estimate", colnames(ab_ci))
+      tmp <- cbind(c(ab,total),rbind(ab_ci, total_ci),
+                   c(ab_std,total_std))
+      colnames(tmp) <- c("Estimate", colnames(ab_ci),
+                         "Completely Standardized")
       print(tmp, ...)
     }
   results <- list(specific_est=ab, total_est=total,
                   specific_ci=ab_ci, total_ci=total_ci,
                   ab_simualted=ab_mc,
+                  specific_std=ab_std, total_std=total_std,
                   total_simulated=total_mc)
   invisible(results)
 }
