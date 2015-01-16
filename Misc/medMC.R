@@ -18,7 +18,7 @@ medMC <- function(a, b, ase, bse, nrep=1000, conf=.95,
   #   ase: A vector of the standard error(s) of a.
   #   bse: A vector of the standard error(s) of b.
   #   nrep: Number of sets of random numbers to generate.
-  #   conf: The percentage of coverage of the confidence
+  #   conf: The proportion of coverage of the confidence
   #         interval.
   #   seed: Random seed. Used to make the simulation reproducible.
   #   printout: If TRUE, the results will be printed.
