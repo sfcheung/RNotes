@@ -20,6 +20,9 @@ medMC <- function(a, b, ase, bse, nrep=1000, conf=.95,
   #   nrep: Number of sets of random numbers to generate.
   #   conf: The percentage of coverage of the confidence
   #         interval.
+  #   seed: Random seed. Used to make the simulation reproducible.
+  #   printout: If TRUE, the results will be printed.
+  #   ...: Optional arguments to be passed to print().
   
   require(MASS)
   
@@ -62,6 +65,8 @@ medMC <- function(a, b, ase, bse, nrep=1000, conf=.95,
   invisible(results)
 }
 
-# Example
-# medMC(a=c(.5, .7), b=c(.4, .6), ase=c(.1, .2), bse=c(.2, .1), nrep=1000)
-# medMC(a=.5, b=.4, ase=.1, bse=.2, nrep=1000)
+# Examples:
+# In real analysis, nrep should be at least 20000
+# medMC(a=c(.5, .7), b=c(.4, .6), 
+#       ase=c(.1, .2), bse=c(.2, .1), nrep=1000, print=TRUE, digits=4)
+# medMC(a=.5, b=.4, ase=.1, bse=.2, nrep=1000, print=TRUE, digits=4)
